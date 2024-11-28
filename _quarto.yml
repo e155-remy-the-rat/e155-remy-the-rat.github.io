@@ -1,0 +1,23 @@
+project:
+  type: website
+
+website:
+  title: "E155 Prpject: Remy the Rat"
+  navbar:
+    left:
+      - href: design.qmd
+        text: Design
+      - href: documentation.qmd
+        text: Documentation
+      - href: references.qmd
+        text: References
+      
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+
