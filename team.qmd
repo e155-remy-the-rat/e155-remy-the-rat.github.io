@@ -1,5 +1,5 @@
 ---
-title: "References"
+title: "Team"
 ---
 
 This is a Quarto website.

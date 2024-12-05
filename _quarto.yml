@@ -5,12 +5,16 @@ website:
   title: "E155 Prpject: Remy the Rat"
   navbar:
     left:
-      - href: design.qmd
-        text: Design
       - href: documentation.qmd
         text: Documentation
-      - href: references.qmd
-        text: References
+      - href: fpga.qmd
+        text: FPGA
+      - href: mcu.qmd
+        text: MCU
+      - href: results.qmd
+        text: Results
+      - href: team.qmd
+        text: Team
       
 
 format:

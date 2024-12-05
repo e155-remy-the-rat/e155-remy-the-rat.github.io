@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Design – E155 Prpject: Remy the Rat</title>
+<title>Team – E155 Prpject: Remy the Rat</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,16 +89,24 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./design.html" aria-current="page"> 
-<span class="menu-text">Design</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="./documentation.html"> 
 <span class="menu-text">Documentation</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./references.html"> 
-<span class="menu-text">References</span></a>
+    <a class="nav-link" href="./fpga.html"> 
+<span class="menu-text">FPGA</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./mcu.html"> 
+<span class="menu-text">MCU</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./results.html"> 
+<span class="menu-text">Results</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./team.html" aria-current="page"> 
+<span class="menu-text">Team</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -119,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Design</h1>
+<h1 class="title">Team</h1>
 </div>
 
 
@@ -232,7 +240,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/e155-remy-the-rat\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
