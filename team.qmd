@@ -10,7 +10,7 @@ about:
 ## Alisha Chulani
 ![](alisha.jpg){.team-photo}
 
-**About:** Alisha is a senior engineering major at Harvey Mudd interested in robotics, electrical engineering, and hardware-software integration. She plays for the CMS women’s tennis team and likes to cook, bake, and try new foods.   
+**About:** Alisha is a senior engineering major at Harvey Mudd interested in robotics, electrical engineering, and hardware-software integration. She plays for the CMS women’s tennis team and likes to cook, bake, and try new foods. Her favorite movie is Ratatouille.  
 **Links:**
     - [LinkedIn](https://www.linkedin.com/in/alishachulani30/)
     - [GitHub](https://github.com/alishachulani)
@@ -21,7 +21,7 @@ about:
 ## Marina Ring
 ![](marina.jpg){.team-photo}
 
-**About:** Marina is a senior engineering major at Harvey Mudd interested in integrating mechanical, electrical, and software components into multidisciplinary projects with a special interest in robotics. In her free time, she likes to play tennis, be outside, listen to music, and bake.  
+**About:** Marina is a senior engineering major at Harvey Mudd interested in integrating mechanical, electrical, and software components into multidisciplinary projects with a special interest in robotics. In her free time, she likes to play tennis, be outside, listen to music, and bake. Her favorite movie is Ratatouille. 
 **Links:**
     - [LinkedIn](https://www.linkedin.com/in/marina-ring/)
     - [GitHub](https://github.com/marinaring)
