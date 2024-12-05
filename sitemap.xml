@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://e155-remy-the-rat.github.io/references.html</loc>
-    <lastmod>2024-11-28T21:10:57.176Z</lastmod>
+    <loc>https://e155-remy-the-rat.github.io/mcu.html</loc>
+    <lastmod>2024-12-05T00:06:39.657Z</lastmod>
   </url>
   <url>
     <loc>https://e155-remy-the-rat.github.io/index.html</loc>
     <lastmod>2024-11-28T21:10:57.176Z</lastmod>
   </url>
   <url>
-    <loc>https://e155-remy-the-rat.github.io/design.html</loc>
-    <lastmod>2024-11-28T21:10:57.176Z</lastmod>
+    <loc>https://e155-remy-the-rat.github.io/results.html</loc>
+    <lastmod>2024-12-05T00:06:55.955Z</lastmod>
+  </url>
+  <url>
+    <loc>https://e155-remy-the-rat.github.io/fpga.html</loc>
+    <lastmod>2024-12-05T00:06:31.356Z</lastmod>
+  </url>
+  <url>
+    <loc>https://e155-remy-the-rat.github.io/team.html</loc>
+    <lastmod>2024-12-05T00:05:56.004Z</lastmod>
   </url>
   <url>
     <loc>https://e155-remy-the-rat.github.io/documentation.html</loc>

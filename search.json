@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "references.html",
-    "href": "references.html",
-    "title": "References",
-    "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "E155 Project: Remy the Rat",
@@ -14,9 +7,9 @@
     "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
   },
   {
-    "objectID": "design.html",
-    "href": "design.html",
-    "title": "Design",
+    "objectID": "team.html",
+    "href": "team.html",
+    "title": "Team",
     "section": "",
     "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
   },
