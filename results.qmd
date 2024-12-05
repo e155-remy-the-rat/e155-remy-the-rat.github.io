@@ -5,7 +5,18 @@ title: "Results"
 ## Project Results and How-to-Use
 The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired. 
 
-Our final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately. 
+Our final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, place hands on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately. 
+
+The final product is also powered by batteries to make this fully wireless and to also make the body system completely separate and disconnected from the head system as desired. 
+
+The video below shows the calibration process and a working project! 
+
+{{< video https://www.youtube.com/watch?v=Vcw_8P1zfKI >}}
+
+
+This video shows the back view to see the motors working as well: 
+
+{{< video https://www.youtube.com/watch?v=5fGGBMzzlFI>}}
 
 
 ## Scope Traces and Testbenches 
