@@ -17,7 +17,7 @@ The figures below display the circuit schematics for this project.
 ![Schematic of the system with the RF receiver, second MCU, FPGA, and motors](fpgaschem.jpg)
 
 
-For all code used in this project, visit our Remy the Rat organization on Github: https://github.com/e155-remy-the-rat 
+For all code used in this project, visit our Remy the Rat organization on [GitHub](https://github.com/e155-remy-the-rat).
 
 ## New MCU Features
 In order to reduce the number of wires and thereby improve the wearability and user experience of the design, the I2C communication protocol was chosen to communicate between the IMU sensors and the microcontroller. The I2C peripheral was a feature of the microcontroller that was not explored during the E155 labs. 
@@ -29,12 +29,12 @@ The FPGA is in charge of generating PWM signals to drive the servo motors that m
 
 ## Bill of Materials and Budget
 
-| Item                            | Part Number | Link                                                                                                                                                                                                                                 | Amount | Unit Price | Total  |
-|---------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|------------|--------|
-| Adafruit TDK InvenSense 9-DoF IMU | ICM-20948   | [Adafruit Product Link](https://www.adafruit.com/product/4554)                                                                                                                                                                     | 2      | 14.95      | 29.90  |
-| Servo Motors                    | SG51R       | [Adafruit Servo Motors](https://www.adafruit.com/product/2201?gad_source=1&gclid=Cj0KCQjw05i4BhDiARIsAB_2wfC17199SVDxq3_MIeB0UkOc8lscu5J9l9oaFmnuSxfnjpYNY158c8UaAplYEALw_wcB)                                                      | 2      | 5.95       | 11.90  |
-| RF Module                       | NRF24L01    | [Elecbee RF Module](https://www.elecbee.com/en-14178-nrf24l01-chip-power-enhanced-version-si24r1-24g-wireless-communication-receiving-module)                                                                                      | 1      | 13.96      | 13.96  |
-| Chef's Coat                     | B00O7PBRJW  | [Chef's Coat Amazon](https://www.amazon.com/dp/B00O7PBRJW)                                                                                                                                                                         | 1      | 13.56      | 13.56  |
+| Item                                                                                                            | Part Number | Amount | Unit Price | Total  |
+|-------------------------------------------------------------------------------------------------------------------------|-------------|--------|------------|--------|
+| [Adafruit TDK InvenSense 9-DoF IMU](https://www.adafruit.com/product/4554)                                                | ICM-20948   | 2      | 14.95      | 29.90  |
+| [Servo Motors](https://www.adafruit.com/product/2201?gad_source=1&gclid=Cj0KCQjw05i4BhDiARIsAB_2wfC17199SVDxq3_MIeB0UkOc8lscu5J9l9oaFmnuSxfnjpYNY158c8UaAplYEALw_wcB) | SG51R       | 2      | 5.95       | 11.90  |
+| [RF Module](https://www.elecbee.com/en-14178-nrf24l01-chip-power-enhanced-version-si24r1-24g-wireless-communication-receiving-module) | NRF24L01    | 2      | 1.96      | 3.92  |
+| [Chef's Coat](https://www.amazon.com/dp/B00O7PBRJW)                                                                      | B00O7PBRJW  | 1      | 13.56      | 13.56  |
 
 
-So, the total price of this project was $69.32, but the chef coat was just for fun, so the core pieces of this project was actually just over $50. 
+So, the total price of this project was $59.28, but the chef coat was just for fun, so the core pieces of this project were well under $50, which is well under budget. 

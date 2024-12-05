@@ -1,61 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "E155 Project: Remy the Rat",
-    "section": "",
-    "text": "We have recreated Remy the Rat from Ratatouille! For those who have not seen the movie, Remy is a rat that sits on the head of a chef and controls the arm and hand movements of the chef to cook in a restaurant. The video below, taken from the movie, shows the type of movements we are trying to recreate:\n\n\n\nRemy teaches Linguini how to cook\n\n\nWe have slightly adjusted this to create a rat that reads signals from IMUs connected to the user’s arms, and subsequently moves the rat’s arms to match! This gives the illusion of the rat controlling the user, with four different positions of Remy’s. See the video below to see how we did:\nIn order to implement this design, IMUs track the position of the user’s arms and communicate with a microcontroller on the user’s body. The resulting state is transmitted to a microcontroller and FPGA on the top of the user’s head that control motors linked to Remy’s arms. A block diagram of this implementation is shown below."
-  },
-  {
-    "objectID": "team.html",
-    "href": "team.html",
-    "title": "Team",
-    "section": "",
-    "text": "About: Alisha is a senior engineering major at Harvey Mudd interested in robotics, electrical engineering, and hardware-software integration. She plays for the CMS women’s tennis team and likes to cook, bake, and try new foods.\nLinks: - LinkedIn - GitHub - MicroPs Website\n\n\n\n\nAbout: Marina is a senior engineering major at Harvey Mudd interested in integrating mechanical, electrical, and software components into multidisciplinary projects with a special interest in robotics. In her free time, she likes to play tennis, be outside, listen to music, and bake.\nLinks: - LinkedIn - GitHub - MicroPs Website"
-  },
-  {
-    "objectID": "documentation.html",
-    "href": "documentation.html",
-    "title": "Documentation",
-    "section": "",
-    "text": "Two Adafruit TDK InvenSense ICM-20948 9-DoF IMUs attach onto the user’s arms to measure pitch angle. The IMU signals communicate to a first MCU through an I2C interface. The MCU takes in the IMU sensor data and uses this information to decide what the motors will do (outputting motor states) to a second MCU, then to an FPGA to drive the servo motors.\nTwo NRF24L01 Wireless Communication Receiving modules send signals between the two MCUs. This allows us to eliminate wires between the Remy headpiece and the other components, reducing restriction on users’ movements.\nThe FPGA takes input from the MCU with 4 pins such that there are 16 possible states for the motors/rat, with the first two bits representing states for the left motor and the last two bits representing the states for the right motor. The FPGA drives the servo motor using PWM signal which controls the rat arm movements.\nThe figures below display the circuit schematics for this project.\n\n\n\nSchematic of the system with the IMUs, first MCU, and RF transceiver\n\n\n\n\n\nSchematic of the system with the RF receiver, second MCU, FPGA, and motors\n\n\nFor all code used in this project, visit our Remy the Rat organization on Github: https://github.com/e155-remy-the-rat"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
-  },
-  {
-    "objectID": "documentation.html#design-overview",
-    "href": "documentation.html#design-overview",
-    "title": "Documentation",
-    "section": "",
-    "text": "Two Adafruit TDK InvenSense ICM-20948 9-DoF IMUs attach onto the user’s arms to measure pitch angle. The IMU signals communicate to a first MCU through an I2C interface. The MCU takes in the IMU sensor data and uses this information to decide what the motors will do (outputting motor states) to a second MCU, then to an FPGA to drive the servo motors.\nTwo NRF24L01 Wireless Communication Receiving modules send signals between the two MCUs. This allows us to eliminate wires between the Remy headpiece and the other components, reducing restriction on users’ movements.\nThe FPGA takes input from the MCU with 4 pins such that there are 16 possible states for the motors/rat, with the first two bits representing states for the left motor and the last two bits representing the states for the right motor. The FPGA drives the servo motor using PWM signal which controls the rat arm movements.\nThe figures below display the circuit schematics for this project.\n\n\n\nSchematic of the system with the IMUs, first MCU, and RF transceiver\n\n\n\n\n\nSchematic of the system with the RF receiver, second MCU, FPGA, and motors\n\n\nFor all code used in this project, visit our Remy the Rat organization on Github: https://github.com/e155-remy-the-rat"
-  },
-  {
-    "objectID": "documentation.html#new-mcu-features",
-    "href": "documentation.html#new-mcu-features",
-    "title": "Documentation",
-    "section": "New MCU Features",
-    "text": "New MCU Features\nIn order to reduce the number of wires and thereby improve the wearability and user experience of the design, the I2C communication protocol was chosen to communicate between the IMU sensors and the microcontroller. The I2C peripheral was a feature of the microcontroller that was not explored during the E155 labs.\nIn order to implement this protocol, drivers were written from scratch that implemented I2C peripheral configuration, I2C reading, and I2C writing. For more information on implementation, refer to the MCU page."
-  },
-  {
-    "objectID": "documentation.html#new-fpga-features",
-    "href": "documentation.html#new-fpga-features",
-    "title": "Documentation",
-    "section": "New FPGA Features",
-    "text": "New FPGA Features\nThe FPGA is in charge of generating PWM signals to drive the servo motors that move Remy’s arms. The FPGA takes in the states from the second MCU through 4 GPIO pins and drives PWM signals to the motors to move them to a distinct state. The 2 Most Significant Bits of the state variable drive the left motor, while the 2 Least Significant Bits drive the right motor. Thus, each motor has 4 distinct states. For more information, see the FPGA page."
-  },
-  {
-    "objectID": "documentation.html#bill-of-materials-and-budget",
-    "href": "documentation.html#bill-of-materials-and-budget",
-    "title": "Documentation",
-    "section": "Bill of Materials and Budget",
-    "text": "Bill of Materials and Budget\n\n\n\nItem\nPart Number\nLink\nAmount\nUnit Price\nTotal\n\n\n\n\nAdafruit TDK InvenSense 9-DoF IMU\nICM-20948\nAdafruit Product Link\n2\n14.95\n29.90\n\n\nServo Motors\nSG51R\nAdafruit Servo Motors\n2\n5.95\n11.90\n\n\nRF Module\nNRF24L01\nElecbee RF Module\n1\n13.96\n13.96\n\n\nChef’s Coat\nB00O7PBRJW\nChef’s Coat Amazon\n1\n13.56\n13.56\n\n\n\nSo, the total price of this project was $69.32, but the chef coat was just for fun, so the core pieces of this project was actually just over $50."
-  },
-  {
     "objectID": "mcu.html",
     "href": "mcu.html",
     "title": "MCU Design Details",
@@ -63,25 +7,11 @@
     "text": "This project uses two MCUs to handle both the reading of IMU data and the transmission of state information. The first MCU on the chef jacket reads acceleration and gyroscope data from the 2 IMUs mounted on the user’s arms through I2C. It also processes the data to then extrapolate state information for the arm movements. Lastly, this IMU writes state data through SPI to the first RF module to then transmit to the second RF module.\nThe second MCU reads data from the second RF module to receive state information for the movement of the arms. This MCU then sends the state information to the FPGA through GPIO.\n\nInput\n\nReceives signals from the IMU via I2C: a new feature for processing IMU signals.\n\nProcessing\n\nProcesses IMU data (also new!) to:\n\nDetermine motor actions.\nDecide the state to be transmitted.\n\n\nOutput\n\nSends signals or states to the RF chip via SPI. (also new!!)"
   },
   {
-    "objectID": "team.html#alisha-chulani",
-    "href": "team.html#alisha-chulani",
-    "title": "Team",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "E155 Project: Remy the Rat",
     "section": "",
-    "text": "About: Alisha is a senior engineering major at Harvey Mudd interested in robotics, electrical engineering, and hardware-software integration. She plays for the CMS women’s tennis team and likes to cook, bake, and try new foods.\nLinks: - LinkedIn - GitHub - MicroPs Website"
-  },
-  {
-    "objectID": "team.html#marina-ring",
-    "href": "team.html#marina-ring",
-    "title": "Team",
-    "section": "",
-    "text": "About: Marina is a senior engineering major at Harvey Mudd interested in integrating mechanical, electrical, and software components into multidisciplinary projects with a special interest in robotics. In her free time, she likes to play tennis, be outside, listen to music, and bake.\nLinks: - LinkedIn - GitHub - MicroPs Website"
-  },
-  {
-    "objectID": "fpga.html",
-    "href": "fpga.html",
-    "title": "FPGA Design Details",
-    "section": "",
-    "text": "The FPGA receives state information from the second IMU through GPIO pins, and uses this information to accordingly drive PWM signals to move the motors of the rat’s arms. As explained in the documentation page, the FPGA takes input from the MCU with 4 pins such that there are 16 possible states for the motors/rat, with the first two bits representing states for the left motor and the last two bits representing the states for the right motor - for a total of 4 distinct states per motor. The FPGA drives the servo motor using PWM signal which controls the rat arm movements.\nSince the PWM signals must mirror each other, the following image shows the position of the states:\n\n\n\nDiagram showing the mapping of motor states\n\n\nA block diagram of the FPGA code setup is included below.\n\n\n\nBlock Diagram of VHDL Code\n\n\n\nInput\n\nReceives states from the second MCU through GPIO\n\nProcessing\n\nProcesses motor states received from the MCU.\nGenerates PWM signals (new feature for the FPGA not covered in class or labs). (new!)\n\nOutput\n\nSends PWM signals to power servo motors via GPIO. (new!)"
+    "text": "We have recreated Remy the Rat from Ratatouille! For those who have not seen the movie, Remy is a rat that sits on the head of a chef and controls the arm and hand movements of the chef to cook in a restaurant. The video below, taken from the movie, shows the type of movements we are trying to recreate:\n\n\n\nRemy teaches Linguini how to cook\n\n\nWe have slightly adjusted this to create a rat that reads signals from IMUs connected to the user’s arms, and subsequently moves the rat’s arms to match! This gives the illusion of the rat controlling the user, with four different positions of Remy’s. See the video below to see how we did:\nIn order to implement this design, IMUs track the position of the user’s arms and communicate with a microcontroller on the user’s body. The resulting state is transmitted to a microcontroller and FPGA on the top of the user’s head that control motors linked to Remy’s arms. A block diagram of this implementation is shown below.\n\n\n\nBlock Diagram of Project"
   },
   {
     "objectID": "results.html",
@@ -103,5 +33,75 @@
     "title": "Results",
     "section": "Scope Traces and Testbenches",
     "text": "Scope Traces and Testbenches\nThe figure below shows a passing testbench for motor states that send PWM signals.\n\n\n\nServo motor testbench\n\n\nThe image below shows a capture of scope signals showing transactions between the RF modules, proving successful transmission of states.\n\n\n\nScope showing RF transmission"
+  },
+  {
+    "objectID": "fpga.html",
+    "href": "fpga.html",
+    "title": "FPGA Design Details",
+    "section": "",
+    "text": "The FPGA receives state information from the second IMU through GPIO pins, and uses this information to accordingly drive PWM signals to move the motors of the rat’s arms. As explained in the documentation page, the FPGA takes input from the MCU with 4 pins such that there are 16 possible states for the motors/rat, with the first two bits representing states for the left motor and the last two bits representing the states for the right motor - for a total of 4 distinct states per motor. The FPGA drives the servo motor using PWM signal which controls the rat arm movements.\nSince the PWM signals must mirror each other, the following image shows the position of the states:\n\n\n\nDiagram showing the mapping of motor states\n\n\nA block diagram of the FPGA code setup is included below.\n\n\n\nBlock Diagram of VHDL Code\n\n\n\nInput\n\nReceives states from the second MCU through GPIO\n\nProcessing\n\nProcesses motor states received from the MCU.\nGenerates PWM signals (new feature for the FPGA not covered in class or labs). (new!)\n\nOutput\n\nSends PWM signals to power servo motors via GPIO. (new!)"
+  },
+  {
+    "objectID": "team.html",
+    "href": "team.html",
+    "title": "Team",
+    "section": "",
+    "text": "About: Alisha is a senior engineering major at Harvey Mudd interested in robotics, electrical engineering, and hardware-software integration. She plays for the CMS women’s tennis team and likes to cook, bake, and try new foods.\nLinks: - LinkedIn - GitHub - MicroPs Website\n\n\n\n\nAbout: Marina is a senior engineering major at Harvey Mudd interested in integrating mechanical, electrical, and software components into multidisciplinary projects with a special interest in robotics. In her free time, she likes to play tennis, be outside, listen to music, and bake.\nLinks: - LinkedIn - GitHub - MicroPs Website"
+  },
+  {
+    "objectID": "team.html#alisha-chulani",
+    "href": "team.html#alisha-chulani",
+    "title": "Team",
+    "section": "",
+    "text": "About: Alisha is a senior engineering major at Harvey Mudd interested in robotics, electrical engineering, and hardware-software integration. She plays for the CMS women’s tennis team and likes to cook, bake, and try new foods.\nLinks: - LinkedIn - GitHub - MicroPs Website"
+  },
+  {
+    "objectID": "team.html#marina-ring",
+    "href": "team.html#marina-ring",
+    "title": "Team",
+    "section": "",
+    "text": "About: Marina is a senior engineering major at Harvey Mudd interested in integrating mechanical, electrical, and software components into multidisciplinary projects with a special interest in robotics. In her free time, she likes to play tennis, be outside, listen to music, and bake.\nLinks: - LinkedIn - GitHub - MicroPs Website"
+  },
+  {
+    "objectID": "documentation.html",
+    "href": "documentation.html",
+    "title": "Documentation",
+    "section": "",
+    "text": "Two Adafruit TDK InvenSense ICM-20948 9-DoF IMUs attach onto the user’s arms to measure pitch angle. The IMU signals communicate to a first MCU through an I2C interface. The MCU takes in the IMU sensor data and uses this information to decide what the motors will do (outputting motor states) to a second MCU, then to an FPGA to drive the servo motors.\nTwo NRF24L01 Wireless Communication Receiving modules send signals between the two MCUs. This allows us to eliminate wires between the Remy headpiece and the other components, reducing restriction on users’ movements.\nThe FPGA takes input from the MCU with 4 pins such that there are 16 possible states for the motors/rat, with the first two bits representing states for the left motor and the last two bits representing the states for the right motor. The FPGA drives the servo motor using PWM signal which controls the rat arm movements.\nThe figures below display the circuit schematics for this project.\n\n\n\nSchematic of the system with the IMUs, first MCU, and RF transceiver\n\n\n\n\n\nSchematic of the system with the RF receiver, second MCU, FPGA, and motors\n\n\nFor all code used in this project, visit our Remy the Rat organization on GitHub."
+  },
+  {
+    "objectID": "documentation.html#design-overview",
+    "href": "documentation.html#design-overview",
+    "title": "Documentation",
+    "section": "",
+    "text": "Two Adafruit TDK InvenSense ICM-20948 9-DoF IMUs attach onto the user’s arms to measure pitch angle. The IMU signals communicate to a first MCU through an I2C interface. The MCU takes in the IMU sensor data and uses this information to decide what the motors will do (outputting motor states) to a second MCU, then to an FPGA to drive the servo motors.\nTwo NRF24L01 Wireless Communication Receiving modules send signals between the two MCUs. This allows us to eliminate wires between the Remy headpiece and the other components, reducing restriction on users’ movements.\nThe FPGA takes input from the MCU with 4 pins such that there are 16 possible states for the motors/rat, with the first two bits representing states for the left motor and the last two bits representing the states for the right motor. The FPGA drives the servo motor using PWM signal which controls the rat arm movements.\nThe figures below display the circuit schematics for this project.\n\n\n\nSchematic of the system with the IMUs, first MCU, and RF transceiver\n\n\n\n\n\nSchematic of the system with the RF receiver, second MCU, FPGA, and motors\n\n\nFor all code used in this project, visit our Remy the Rat organization on GitHub."
+  },
+  {
+    "objectID": "documentation.html#new-mcu-features",
+    "href": "documentation.html#new-mcu-features",
+    "title": "Documentation",
+    "section": "New MCU Features",
+    "text": "New MCU Features\nIn order to reduce the number of wires and thereby improve the wearability and user experience of the design, the I2C communication protocol was chosen to communicate between the IMU sensors and the microcontroller. The I2C peripheral was a feature of the microcontroller that was not explored during the E155 labs.\nIn order to implement this protocol, drivers were written from scratch that implemented I2C peripheral configuration, I2C reading, and I2C writing. For more information on implementation, refer to the MCU page."
+  },
+  {
+    "objectID": "documentation.html#new-fpga-features",
+    "href": "documentation.html#new-fpga-features",
+    "title": "Documentation",
+    "section": "New FPGA Features",
+    "text": "New FPGA Features\nThe FPGA is in charge of generating PWM signals to drive the servo motors that move Remy’s arms. The FPGA takes in the states from the second MCU through 4 GPIO pins and drives PWM signals to the motors to move them to a distinct state. The 2 Most Significant Bits of the state variable drive the left motor, while the 2 Least Significant Bits drive the right motor. Thus, each motor has 4 distinct states. For more information, see the FPGA page."
+  },
+  {
+    "objectID": "documentation.html#bill-of-materials-and-budget",
+    "href": "documentation.html#bill-of-materials-and-budget",
+    "title": "Documentation",
+    "section": "Bill of Materials and Budget",
+    "text": "Bill of Materials and Budget\n\n\n\nItem\nPart Number\nAmount\nUnit Price\nTotal\n\n\n\n\nAdafruit TDK InvenSense 9-DoF IMU\nICM-20948\n2\n14.95\n29.90\n\n\nServo Motors\nSG51R\n2\n5.95\n11.90\n\n\nRF Module\nNRF24L01\n2\n1.96\n3.92\n\n\nChef’s Coat\nB00O7PBRJW\n1\n13.56\n13.56\n\n\n\nSo, the total price of this project was $59.28, but the chef coat was just for fun, so the core pieces of this project were well under $50, which is well under budget."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
   }
 ]
