@@ -152,6 +152,7 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 <p>We have slightly adjusted this to create a rat that reads signals from IMUs connected to the user’s arms, and subsequently moves the rat’s arms to match! This gives the illusion of the rat controlling the user, with four different positions of Remy’s. See the video below to see how we did:</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Vcw_8P1zfKI" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p>In order to implement this design, IMUs track the position of the user’s arms and communicate with a microcontroller on the user’s body. The resulting state is transmitted to a microcontroller and FPGA on the top of the user’s head that control motors linked to Remy’s arms. A block diagram of this implementation is shown below.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
