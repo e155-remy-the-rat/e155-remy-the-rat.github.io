@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>MCU Design Details – E155 Prpject: Remy the Rat</title>
+<title>MCU Design Details – E155 Project: Remy the Rat</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">E155 Prpject: Remy the Rat</span>
+    <span class="navbar-title">E155 Project: Remy the Rat</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -144,6 +144,26 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>This project uses two MCUs to handle both the reading of IMU data and the transmission of state information. The first MCU on the chef jacket reads acceleration and gyroscope data from the 2 IMUs mounted on the user’s arms through I2C. It also processes the data to then extrapolate state information for the arm movements. Lastly, this IMU writes state data through SPI to the first RF module to then transmit to the second RF module.</p>
+<p>The second MCU reads data from the second RF module to receive state information for the movement of the arms. This MCU then sends the state information to the FPGA through GPIO.</p>
+<ul>
+<li><strong>Input</strong>
+<ul>
+<li>Receives signals from the IMU via I2C: a new feature for processing IMU signals.</li>
+</ul></li>
+<li><strong>Processing</strong>
+<ul>
+<li>Processes IMU data (also new!) to:
+<ul>
+<li>Determine motor actions.</li>
+<li>Decide the state to be transmitted.</li>
+</ul></li>
+</ul></li>
+<li><strong>Output</strong>
+<ul>
+<li>Sends signals or states to the RF chip via SPI. (also new!!)</li>
+</ul></li>
+</ul>
 
 
 

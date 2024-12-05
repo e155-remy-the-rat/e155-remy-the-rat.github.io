@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>FPGA Design Details – E155 Prpject: Remy the Rat</title>
+<title>FPGA Design Details – E155 Project: Remy the Rat</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">E155 Prpject: Remy the Rat</span>
+    <span class="navbar-title">E155 Project: Remy the Rat</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -144,6 +144,36 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>The FPGA receives state information from the second IMU through GPIO pins, and uses this information to accordingly drive PWM signals to move the motors of the rat’s arms. As explained in the documentation page, the FPGA takes input from the MCU with 4 pins such that there are 16 possible states for the motors/rat, with the first two bits representing states for the left motor and the last two bits representing the states for the right motor - for a total of 4 distinct states per motor. The FPGA drives the servo motor using PWM signal which controls the rat arm movements.</p>
+<p>Since the PWM signals must mirror each other, the following image shows the position of the states:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="states.jpg" class="img-fluid figure-img"></p>
+<figcaption>Diagram showing the mapping of motor states</figcaption>
+</figure>
+</div>
+<p>A block diagram of the FPGA code setup is included below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="block.jpg" class="img-fluid figure-img"></p>
+<figcaption>Block Diagram of VHDL Code</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Input</strong>
+<ul>
+<li>Receives states from the second MCU through GPIO</li>
+</ul></li>
+<li><strong>Processing</strong>
+<ul>
+<li>Processes motor states received from the MCU.</li>
+<li>Generates PWM signals (new feature for the FPGA not covered in class or labs). (new!)</li>
+</ul></li>
+<li><strong>Output</strong>
+<ul>
+<li>Sends PWM signals to power servo motors via GPIO. (new!)</li>
+</ul></li>
+</ul>
 
 
 

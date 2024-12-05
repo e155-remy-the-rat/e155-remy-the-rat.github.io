@@ -2,6 +2,17 @@
 title: "E155 Project: Remy the Rat"
 ---
 
-This is a Quarto website.
+We have recreated Remy the Rat from Ratatouille! For those who have not seen the movie, Remy is a rat that sits on the head of a chef and controls the arm and hand movements of the chef to cook in a restaurant. The video below, taken from the movie, shows the type of movements we are trying to recreate:
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+[![Remy teaches Linguini how to cook](https://img.youtube.com/vi/SGfB5Z9lcRo/0.jpg)](https://www.youtube.com/watch?v=SGfB5Z9lcRo)
+
+
+
+We have slightly adjusted this to create a rat that reads signals from IMUs connected to the user's arms, and subsequently moves the rat’s arms to match! This gives the illusion of the rat controlling the user, with four different positions of Remy’s. See the video below to see how we did: 
+
+
+In order to implement this design, IMUs track the position of the user’s arms and communicate with a microcontroller on the user’s body. The resulting state is transmitted to a microcontroller and FPGA on the top of the user’s head that control motors linked to Remy’s arms. A block diagram of this implementation is shown below. 
+
+
+
+

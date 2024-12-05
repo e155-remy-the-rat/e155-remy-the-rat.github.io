@@ -1,3 +1,18 @@
 ---
 title: "MCU Design Details"
 ---
+This project uses two MCUs to handle both the reading of IMU data and the transmission of state information. The first MCU on the chef jacket reads acceleration and gyroscope data from the 2 IMUs mounted on the user’s arms through I2C. It also processes the data to then extrapolate state information for the arm movements. Lastly, this IMU writes state data through SPI to the first RF module to then transmit to the second RF module. 
+
+The second MCU reads data from the second RF module to receive state information for the movement of the arms. This MCU then sends the state information to the FPGA through GPIO.
+
+- **Input**
+  - Receives signals from the IMU via I2C:  a new feature for processing IMU signals.
+
+- **Processing**
+  - Processes IMU data (also new!) to:
+    - Determine motor actions. 
+    - Decide the state to be transmitted.
+
+- **Output**
+  - Sends signals or states to the RF chip via SPI. (also new!!)
+

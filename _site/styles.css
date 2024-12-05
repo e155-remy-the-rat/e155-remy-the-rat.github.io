@@ -1,1 +1,13 @@
-/* css styles */
+.team-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem; /* Space between the two profiles */
+  }
+  
+  .team-photo {
+    width: 100px;    /* Smaller width */
+    height: 100px;  /* Rectangular height */
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+  

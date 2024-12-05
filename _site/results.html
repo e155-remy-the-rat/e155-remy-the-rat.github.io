@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Results – E155 Prpject: Remy the Rat</title>
+<title>Results – E155 Project: Remy the Rat</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">E155 Prpject: Remy the Rat</span>
+    <span class="navbar-title">E155 Project: Remy the Rat</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -119,8 +119,15 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#project-results-and-how-to-use" id="toc-project-results-and-how-to-use" class="nav-link active" data-scroll-target="#project-results-and-how-to-use">Project Results and How-to-Use</a></li>
+  <li><a href="#scope-traces-and-testbenches" id="toc-scope-traces-and-testbenches" class="nav-link" data-scroll-target="#scope-traces-and-testbenches">Scope Traces and Testbenches</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -144,8 +151,30 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="project-results-and-how-to-use" class="level2">
+<h2 class="anchored" data-anchor-id="project-results-and-how-to-use">Project Results and How-to-Use</h2>
+<p>The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired.</p>
+<p>Our final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately.</p>
+</section>
+<section id="scope-traces-and-testbenches" class="level2">
+<h2 class="anchored" data-anchor-id="scope-traces-and-testbenches">Scope Traces and Testbenches</h2>
+<p>The figure below shows a passing testbench for motor states that send PWM signals.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="servowaves.jpg" class="img-fluid figure-img"></p>
+<figcaption>Servo motor testbench</figcaption>
+</figure>
+</div>
+<p>The image below shows a capture of scope signals showing transactions between the RF modules, proving successful transmission of states.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="rfscope.jpg" class="img-fluid figure-img"></p>
+<figcaption>Scope showing RF transmission</figcaption>
+</figure>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

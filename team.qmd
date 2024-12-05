@@ -1,7 +1,30 @@
 ---
 title: "Team"
+about:
+    template: jolla
 ---
 
-This is a Quarto website.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+<div class="team-container">
+
+## Alisha Chulani
+![](alisha.jpg){.team-photo}
+
+**About:** Alisha is a senior engineering major at Harvey Mudd interested in robotics, electrical engineering, and hardware-software integration. She plays for the CMS women’s tennis team and likes to cook, bake, and try new foods.   
+**Links:**
+    - [LinkedIn](https://www.linkedin.com/in/alishachulani30/)
+    - [GitHub](https://github.com/alishachulani)
+    - [MicroPs Website](https://alishachulani.github.io/hmc-e155-portfolio/)
+
+
+
+## Marina Ring
+![](marina.jpg){.team-photo}
+
+**About:** Marina is a senior engineering major at Harvey Mudd interested in integrating mechanical, electrical, and software components into multidisciplinary projects with a special interest in robotics. In her free time, she likes to play tennis, be outside, listen to music, and bake.  
+**Links:**
+    - [LinkedIn](https://www.linkedin.com/in/marina-ring/)
+    - [GitHub](https://github.com/marinaring)
+    - [MicroPs Website](https://marinaring.github.io)
+
+</div>

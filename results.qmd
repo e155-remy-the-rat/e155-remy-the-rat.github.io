@@ -1,3 +1,22 @@
 ---
 title: "Results"
 ---
+
+## Project Results and How-to-Use
+The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired. 
+
+Our final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately. 
+
+
+## Scope Traces and Testbenches 
+
+The figure below shows a passing testbench for motor states that send PWM signals. 
+
+![Servo motor testbench](servowaves.jpg)
+
+The image below shows a capture of scope signals showing transactions between the RF modules, proving successful transmission of states.
+
+![Scope showing RF transmission](rfscope.jpg)
+
+
+
