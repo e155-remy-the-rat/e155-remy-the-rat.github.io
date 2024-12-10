@@ -1,0 +1,23 @@
+---
+title: "References"
+---
+
+## Links and References 
+1. Our Github [Organization](https://github.com/e155-remy-the-rat)
+
+2. She Builds Robots [GitHub](https://github.com/shebuildsrobots/remy_model) for project inspiration and 3D print STL files 
+
+3. [Public library](https://github.com/LonelyWolf/stm32/blob/master/nrf24l01/README.MD) that was adapted for RF functions 
+
+4. [Fusion library](https://github.com/xioTechnologies/Fusion) for IMU filtering and functionality
+
+## Acknowledgements 
+Thank you to everyone who made this project possible:
+
+1. Professor Brake for a great class - it pushed us to our limits but also provided a safe and supportive environment to learn
+
+2. Lab TAs (Neil Chulani, Kavi Dey, and Henry Mirilles) for always offering their help and being a helping hand when we needed it most
+
+3. Our lovely classmates who always provided comedic relief and someone to bounce ideas off of when we were stuck
+
+4. Professor Mendelson for helping out with the elusive arm mechanical design

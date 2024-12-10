@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Documentation – E155 Project: Remy the Rat</title>
+<title>References – E155 Project: Remy the Rat</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./documentation.html" aria-current="page"> 
+    <a class="nav-link" href="./documentation.html"> 
 <span class="menu-text">Documentation</span></a>
   </li>  
   <li class="nav-item">
@@ -108,6 +108,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./team.html"> 
 <span class="menu-text">Team</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./links.html" aria-current="page"> 
+<span class="menu-text">References</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -124,10 +128,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#design-overview" id="toc-design-overview" class="nav-link active" data-scroll-target="#design-overview">Design Overview</a></li>
-  <li><a href="#new-mcu-features" id="toc-new-mcu-features" class="nav-link" data-scroll-target="#new-mcu-features">New MCU Features</a></li>
-  <li><a href="#new-fpga-features" id="toc-new-fpga-features" class="nav-link" data-scroll-target="#new-fpga-features">New FPGA Features</a></li>
-  <li><a href="#bill-of-materials-and-budget" id="toc-bill-of-materials-and-budget" class="nav-link" data-scroll-target="#bill-of-materials-and-budget">Bill of Materials and Budget</a></li>
+  <li><a href="#links-and-references" id="toc-links-and-references" class="nav-link active" data-scroll-target="#links-and-references">Links and References</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul>
 </nav>
     </div>
@@ -136,7 +138,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Documentation</h1>
+<h1 class="title">References</h1>
 </div>
 
 
@@ -153,79 +155,24 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="design-overview" class="level2">
-<h2 class="anchored" data-anchor-id="design-overview">Design Overview</h2>
-<p>Two Adafruit TDK InvenSense ICM-20948 9-DoF IMUs attach onto the user’s arms to measure pitch angle. The IMU signals communicate to a first MCU through an I2C interface. The MCU takes in the IMU sensor data and uses this information to decide what the motors will do (outputting motor states) to a second MCU, then to an FPGA to drive the servo motors.</p>
-<p>Two NRF24L01 Wireless Communication Receiving modules send signals between the two MCUs. This allows us to eliminate wires between the Remy headpiece and the other components, reducing restriction on users’ movements.</p>
-<p>The FPGA takes input from the MCU with 4 pins such that there are 16 possible states for the motors/rat, with the first two bits representing states for the left motor and the last two bits representing the states for the right motor. The FPGA drives the servo motor using PWM signal which controls the rat arm movements.</p>
-<p>The figures below display the circuit schematics for this project.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="imu1schem.jpg" class="img-fluid figure-img"></p>
-<figcaption>Schematic of the system with the IMUs, first MCU, and RF transceiver</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="fpgaschem.jpg" class="img-fluid figure-img"></p>
-<figcaption>Schematic of the system with the RF receiver, second MCU, FPGA, and motors</figcaption>
-</figure>
-</div>
-<p>For all code used in this project, visit our Remy the Rat organization on <a href="https://github.com/e155-remy-the-rat">GitHub</a>.</p>
+<section id="links-and-references" class="level2">
+<h2 class="anchored" data-anchor-id="links-and-references">Links and References</h2>
+<ol type="1">
+<li><p>Our Github <a href="https://github.com/e155-remy-the-rat">Organization</a></p></li>
+<li><p>She Builds Robots <a href="https://github.com/shebuildsrobots/remy_model">GitHub</a> for project inspiration and 3D print STL files</p></li>
+<li><p><a href="https://github.com/LonelyWolf/stm32/blob/master/nrf24l01/README.MD">Public library</a> that was adapted for RF functions</p></li>
+<li><p><a href="https://github.com/xioTechnologies/Fusion">Fusion library</a> for IMU filtering and functionality</p></li>
+</ol>
 </section>
-<section id="new-mcu-features" class="level2">
-<h2 class="anchored" data-anchor-id="new-mcu-features">New MCU Features</h2>
-<p>In order to reduce the number of wires and thereby improve the wearability and user experience of the design, the I2C communication protocol was chosen to communicate between the IMU sensors and the microcontroller. The I2C peripheral was a feature of the microcontroller that was not explored during the E155 labs.</p>
-<p>In order to implement this protocol, drivers were written from scratch that implemented I2C peripheral configuration, I2C reading, and I2C writing. For more information on implementation, refer to the MCU page.</p>
-</section>
-<section id="new-fpga-features" class="level2">
-<h2 class="anchored" data-anchor-id="new-fpga-features">New FPGA Features</h2>
-<p>The FPGA is in charge of generating PWM signals to drive the servo motors that move Remy’s arms. The FPGA takes in the states from the second MCU through 4 GPIO pins and drives PWM signals to the motors to move them to a distinct state. The 2 Most Significant Bits of the state variable drive the left motor, while the 2 Least Significant Bits drive the right motor. Thus, each motor has 4 distinct states. For more information, see the FPGA page.</p>
-</section>
-<section id="bill-of-materials-and-budget" class="level2">
-<h2 class="anchored" data-anchor-id="bill-of-materials-and-budget">Bill of Materials and Budget</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Item</th>
-<th>Part Number</th>
-<th>Amount</th>
-<th>Unit Price</th>
-<th>Total</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="https://www.adafruit.com/product/4554">Adafruit TDK InvenSense 9-DoF IMU</a></td>
-<td>ICM-20948</td>
-<td>2</td>
-<td>14.95</td>
-<td>29.90</td>
-</tr>
-<tr class="even">
-<td><a href="https://www.adafruit.com/product/2201?gad_source=1&amp;gclid=Cj0KCQjw05i4BhDiARIsAB_2wfC17199SVDxq3_MIeB0UkOc8lscu5J9l9oaFmnuSxfnjpYNY158c8UaAplYEALw_wcB">Servo Motors</a></td>
-<td>SG51R</td>
-<td>2</td>
-<td>5.95</td>
-<td>11.90</td>
-</tr>
-<tr class="odd">
-<td><a href="https://www.elecbee.com/en-14178-nrf24l01-chip-power-enhanced-version-si24r1-24g-wireless-communication-receiving-module">RF Module</a></td>
-<td>NRF24L01</td>
-<td>2</td>
-<td>1.96</td>
-<td>3.92</td>
-</tr>
-<tr class="even">
-<td><a href="https://www.amazon.com/dp/B00O7PBRJW">Chef’s Coat</a></td>
-<td>B00O7PBRJW</td>
-<td>1</td>
-<td>13.56</td>
-<td>13.56</td>
-</tr>
-</tbody>
-</table>
-<p>So, the total price of this project was $59.28, but the chef coat was just for fun, so the core pieces of this project were well under $50, which is well under budget.</p>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>Thank you to everyone who made this project possible:</p>
+<ol type="1">
+<li><p>Professor Brake for a great class - it pushed us to our limits but also provided a safe and supportive environment to learn</p></li>
+<li><p>Lab TAs (Neil Chulani, Kavi Dey, and Henry Mirilles) for always offering their help and being a helping hand when we needed it most</p></li>
+<li><p>Our lovely classmates who always provided comedic relief and someone to bounce ideas off of when we were stuck</p></li>
+<li><p>Professor Mendelson for helping out with the elusive arm mechanical design</p></li>
+</ol>
 
 
 </section>

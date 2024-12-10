@@ -4,7 +4,7 @@
     "href": "mcu.html",
     "title": "MCU Design Details",
     "section": "",
-    "text": "This project uses two MCUs to handle both the reading of IMU data and the transmission of state information. The first MCU on the chef jacket reads acceleration and gyroscope data from the 2 IMUs mounted on the user’s arms through I2C. It also processes the data to then extrapolate state information for the arm movements. Lastly, this IMU writes state data through SPI to the first RF module to then transmit to the second RF module.\nThe second MCU reads data from the second RF module to receive state information for the movement of the arms. This MCU then sends the state information to the FPGA through GPIO.\n\nInput\n\nReceives signals from the IMU via I2C: a new feature for processing IMU signals.\n\nProcessing\n\nProcesses IMU data (also new!) to:\n\nDetermine motor actions.\nDecide the state to be transmitted.\n\n\nOutput\n\nSends signals or states to the RF chip via SPI. (also new!!)"
+    "text": "This project uses two MCUs to handle both the reading of IMU data and the transmission of state information. The first MCU on the chef jacket reads acceleration and gyroscope data from the 2 IMUs mounted on the user’s arms through I2C. It also processes the data to then extrapolate state information for the arm movements. Lastly, this IMU writes state data through SPI to the first RF module to then transmit to the second RF module.\nThe second MCU reads data from the second RF module to receive state information for the movement of the arms. This MCU then sends the state information to the FPGA through GPIO.\n\nInput\n\nReceives signals from the IMU via I2C: a new feature for processing IMU signals.\n\nProcessing\n\nProcesses IMU data (also new!) to:\nDetermine motor actions.\nDecide the state to be transmitted.\n\nOutput\n\nSends signals or states to the RF chip via SPI. (also new!!)"
   },
   {
     "objectID": "index.html",
@@ -18,14 +18,14 @@
     "href": "results.html",
     "title": "Results",
     "section": "",
-    "text": "The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired.\nOur final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, place hands on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately.\nThe final product is also powered by batteries to make this fully wireless and to also make the body system completely separate and disconnected from the head system as desired.\nThe video below shows the calibration process and a working project!\n\nThis video shows the back view to see the motors working as well:"
+    "text": "The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired.\nOur final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, place hands on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately.\nThe final product is also powered by batteries to make this fully wireless and to also make the body system completely separate and disconnected from the head system as desired.\nThe video below shows the calibration process and a working project!\n\nThis video shows the back view to see the motors working as well:\n\n\n\n\nProfessor Brake and Remy!"
   },
   {
     "objectID": "results.html#project-results-and-how-to-use",
     "href": "results.html#project-results-and-how-to-use",
     "title": "Results",
     "section": "",
-    "text": "The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired.\nOur final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, place hands on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately.\nThe final product is also powered by batteries to make this fully wireless and to also make the body system completely separate and disconnected from the head system as desired.\nThe video below shows the calibration process and a working project!\n\nThis video shows the back view to see the motors working as well:"
+    "text": "The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired.\nOur final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, place hands on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately.\nThe final product is also powered by batteries to make this fully wireless and to also make the body system completely separate and disconnected from the head system as desired.\nThe video below shows the calibration process and a working project!\n\nThis video shows the back view to see the motors working as well:\n\n\n\n\nProfessor Brake and Remy!"
   },
   {
     "objectID": "results.html#scope-traces-and-testbenches",
@@ -103,5 +103,61 @@
     "title": "About",
     "section": "",
     "text": "About this site"
+  },
+  {
+    "objectID": "mcu.html#general-overview",
+    "href": "mcu.html#general-overview",
+    "title": "MCU Design Details",
+    "section": "",
+    "text": "This project uses two MCUs to handle both the reading of IMU data and the transmission of state information. The first MCU on the chef jacket reads acceleration and gyroscope data from the 2 IMUs mounted on the user’s arms through I2C. It also processes the data to then extrapolate state information for the arm movements. Lastly, this IMU writes state data through SPI to the first RF module to then transmit to the second RF module.\nThe second MCU reads data from the second RF module to receive state information for the movement of the arms. This MCU then sends the state information to the FPGA through GPIO.\n\nInput\n\nReceives signals from the IMU via I2C: a new feature for processing IMU signals.\n\nProcessing\n\nProcesses IMU data (also new!) to:\nDetermine motor actions.\nDecide the state to be transmitted.\n\nOutput\n\nSends signals or states to the RF chip via SPI. (also new!!)"
+  },
+  {
+    "objectID": "mcu.html#imu-integration",
+    "href": "mcu.html#imu-integration",
+    "title": "MCU Design Details",
+    "section": "IMU Integration",
+    "text": "IMU Integration"
+  },
+  {
+    "objectID": "mcu.html#rf-communication",
+    "href": "mcu.html#rf-communication",
+    "title": "MCU Design Details",
+    "section": "RF Communication",
+    "text": "RF Communication\nThis project uses one MCU to write the collected IMU data to one nRF module as the transceiver, and then use on MCU to read data from the second nRF module as the receiver.\nThe following details the process that is needed to correctly configure and use the transciever and reciever RF modules.\n\nTransmit\n\nSet the address/address width\nInitialize RF characteristics (rf frequency, datarate)\nWrite data to TX FIFO (automatically sent out once TX mode turned on)\nTurn on TX mode by configuring mode and CS pin\nData has been sent once TX_DS interrupt/flag is set\nClear interrupts\n\nReceive\n\nSet address/address width\nInitialize RF characteristics\nTurn on RX mode by configuring mode and CS pin\nWait until data is in RX FIFO\nData has been received once RX_DR interrupt/flag is set\nSave data from RX FIFO\nClear interrupts\n\n\nThis was a difficult task because none of the open source libraries we found worked for the MCU-nRF duo. To implement recieving and transcieving functionality, we adapted an existing public library.\nmain.c, nrf24.c, and nrf24_hal.c in the MCU code (which can be found on the Github) are the additional files that were written in addition to the SPI/RCC/GPIO files provided from MicroPs labs. nrf24.c includes all the functions needed to configure the transciever and reciever, specific to the nRF board we are using. nrf24_hal.c (hal = hardware abstraction layer) includes all the functions needed to configure the SPI send-recieve commands."
+  },
+  {
+    "objectID": "mcu.html#mcu-code-setup",
+    "href": "mcu.html#mcu-code-setup",
+    "title": "MCU Design Details",
+    "section": "MCU Code Setup",
+    "text": "MCU Code Setup\nThe RF portions of the main_head.c, main_body.c, and main.c file put together the different commands from nrf24.c and nrf24_hal.c in the correct sequence for transcieving and recieving. main_head.c contains just the reciever code and only uses the RX() function. main_body.c includes the code needed to process IMU angle information and assign states, as well as the transciever code TX() to transmit said states. These can be called in main.c as needed to flash respective MCUs."
+  },
+  {
+    "objectID": "links.html",
+    "href": "links.html",
+    "title": "References",
+    "section": "",
+    "text": "Our Github Organization\nShe Builds Robots GitHub for project inspiration and 3D print STL files\nPublic library that was adapted for RF functions\nFusion library for IMU filtering and functionality"
+  },
+  {
+    "objectID": "links.html#links-and-references",
+    "href": "links.html#links-and-references",
+    "title": "References",
+    "section": "",
+    "text": "Our Github Organization\nShe Builds Robots GitHub for project inspiration and 3D print STL files\nPublic library that was adapted for RF functions\nFusion library for IMU filtering and functionality"
+  },
+  {
+    "objectID": "links.html#ack",
+    "href": "links.html#ack",
+    "title": "References",
+    "section": "Ack",
+    "text": "Ack"
+  },
+  {
+    "objectID": "links.html#acknowledgements",
+    "href": "links.html#acknowledgements",
+    "title": "References",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nThank you to everyone who made this project possible:\n\nProfessor Brake for a great class - it pushed us to our limits but also provided a safe and supportive environment to learn\nLab TAs (Neil Chulani, Kavi Dey, and Henry Mirilles) for always offering their help and being a helping hand when we needed it most\nOur lovely classmates who always provided comedic relief and someone to bounce ideas off of when we were stuck\nProfessor Mendelson for helping out with the elusive arm mechanical design"
   }
 ]

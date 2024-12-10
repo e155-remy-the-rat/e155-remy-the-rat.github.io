@@ -18,6 +18,9 @@ This video shows the back view to see the motors working as well:
 
 {{< video https://www.youtube.com/watch?v=5fGGBMzzlFI>}}
 
+![Professor Brake and Remy!](brake.jpg){ width=50% }
+
+
 
 ## Scope Traces and Testbenches 
 
