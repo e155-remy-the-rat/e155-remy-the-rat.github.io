@@ -180,10 +180,14 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="imu-integration" class="level2">
 <h2 class="anchored" data-anchor-id="imu-integration">IMU Integration</h2>
+<p>In order to communicate with IMU sensors, I2C was chosen. This protocol reduces the number of wires used to connect between the chips and the MCU. There were three functions written for the I2C peripheral driver: one for configuration, writing to a chip, and reading from a chip.</p>
+<p>For configuration of the I2C peripheral, it was important to correctly configure timing of the clocks going into the peripheral. The system clock was configured at 64 MHz and a prescaler of eight was used to slow down the clock going into the peripheral to 8 MHz. The I2C peripheral was configured to run at 400 kHz Fast Mode from this speed based on Table 181 from the STM32 Reference Manual.</p>
+<p>A driver was also written for the ICM20948 chip based off of the I2C driver. The chip was configured by resetting the chip, clearing sleep mode, and enabling the accelerometer and gyroscope or by sending the signals {0x06, 0x02, 0x00} through I2C to the corresponding address of the chip. Additionally, a function was written to configure the accelerometer and gyroscope readings. The sample rate divisor for both sets of readings was set to zero by writing 0x00 to the location 0x10 and to the location 0x00. The digital low pass filter onboard the ICM chip was enabled and configuration six was chosen for both sets of readings by writing to location 0x14 for the accelerometer and 0x01 for the gyroscope. Finally, in order to read gyroscope and accelerometer data, twelve bytes of data were read starting from the address 0x2D.</p>
+<p>IMU data is notoriously noisy, so multiple measures were taken to reduce noise in the data. First, an initial calibration was performed for each new user. A ten second delay in the code allowed the user to move to an appropriate position (wrists horizontal) and a hundred sets of data were averaged to get an initial offset for the IMUs. Second, a sensor fusion algorithm was used to calculate orientation from IMU data. In particular, this project uses the open source Fusion library from xioTechnologies that implements the Attitude And Heading Reference System (AHRS) algorithm. A timer was used to calculate time between sample measurements for correction within the algorithm.</p>
 </section>
 <section id="rf-communication" class="level2">
 <h2 class="anchored" data-anchor-id="rf-communication">RF Communication</h2>
-<p>This project uses one MCU to write the collected IMU data to one nRF module as the transceiver, and then use on MCU to read data from the second nRF module as the receiver.</p>
+<p>This project uses one MCU to write the collected IMU data to one nRF module as the transceiver, and then uses a second MCU to read data from the second nRF module as the receiver.</p>
 <p>The following details the process that is needed to correctly configure and use the transciever and reciever RF modules.</p>
 <ul>
 <li><strong>Transmit</strong>
@@ -212,13 +216,21 @@ ul.task-list li input[type="checkbox"] {
 <section id="mcu-code-setup" class="level2">
 <h2 class="anchored" data-anchor-id="mcu-code-setup">MCU Code Setup</h2>
 <p>The RF portions of the main_head.c, main_body.c, and main.c file put together the different commands from nrf24.c and nrf24_hal.c in the correct sequence for transcieving and recieving. main_head.c contains just the reciever code and only uses the RX() function. main_body.c includes the code needed to process IMU angle information and assign states, as well as the transciever code TX() to transmit said states. These can be called in main.c as needed to flash respective MCUs.</p>
-<p>The following diagram shows a flow of events that occur in the while loop of main for both MCUs.</p>
+<p>The following diagram shows a basic and high level flow of events that occur in the while loop of main for both MCUs.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="mcuflow.jpg" class="img-fluid figure-img"></p>
-<figcaption>Flow Diagram for MCU code</figcaption>
+<figcaption>Overall Diagram for MCU code</figcaption>
 </figure>
 </div>
+<p>The following diagram shows a more granular flow diagram of main_head.c code:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="head.jpg" class="img-fluid figure-img"></p>
+<figcaption>Flow Diagram for main_head.c</figcaption>
+</figure>
+</div>
+<p>The following diagram shows a more granular flow diagram of main_body.c code: <img src="body.jpg" class="img-fluid" alt="Flow Diagram for main_body.c"></p>
 
 
 </section>
