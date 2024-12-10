@@ -157,7 +157,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="project-results-and-how-to-use" class="level2">
 <h2 class="anchored" data-anchor-id="project-results-and-how-to-use">Project Results and How-to-Use</h2>
-<p>The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired.</p>
+<p>The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired. This was proven on more than 15 people throughout the MicroPs Demo Day! Because of the choice to use pitch angle to track movements instead of Z-axis movement, the system works similarly on everyone, regardless of height.</p>
 <p>Our final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, place hands on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately.</p>
 <p>The final product is also powered by batteries to make this fully wireless and to also make the body system completely separate and disconnected from the head system as desired.</p>
 <p>The video below shows the calibration process and a working project!</p>
@@ -173,6 +173,13 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="scope-traces-and-testbenches" class="level2">
 <h2 class="anchored" data-anchor-id="scope-traces-and-testbenches">Scope Traces and Testbenches</h2>
+<p>The I2C peripheral was tested by reading temperature from the two ICM20948 chips. It was easy to validate response at room temperature as well as response to changes in temperature (holding finger down on board, spraying compressed air on board, etc.). The figure below shows successful read and write sequences from the IMU. It completes the following: 1. Successful write signal of 0x39 to peripheral 0x69 2. Successful read signal of 0x0B from peripheral 0x69 3. Successful write signal of 0x3A to peripheral 0x69 4. Successful read signal of 0x20 from peripheral 0x69 5. Temp = 29.5 degC (85 degF) when holding finger down on board</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="i2c.jpg" class="img-fluid figure-img"></p>
+<figcaption>I2C Read and Write Sequence</figcaption>
+</figure>
+</div>
 <p>The figure below shows a passing testbench for motor states that send PWM signals.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -282,7 +289,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/e155-remy-the-rat\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

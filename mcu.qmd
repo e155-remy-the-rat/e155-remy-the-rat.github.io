@@ -20,9 +20,30 @@ The second MCU reads data from the second RF module to receive state information
 
 ## IMU Integration
 
-In order to communicate with IMU sensors, I2C was chosen. This protocol reduces the number of wires used to connect between the chips and the MCU. There were three functions written for the I2C peripheral driver: one for configuration, writing to a chip, and reading from a chip. 
+In order to communicate with IMU sensors, I2C was chosen. This protocol reduces the number of wires used to connect between the chips and the MCU. There were three functions written for the I2C peripheral driver: one for configuration, writing to a chip, and reading from a chip. Writing and reading were implemented as follows: 
 
-For configuration of the I2C peripheral, it was important to correctly configure timing of the clocks going into the peripheral. The system clock was configured at 64 MHz and a prescaler of eight was used to slow down the clock going into the peripheral to 8 MHz. The I2C peripheral was configured to run at 400 kHz Fast Mode from this speed based on Table 181 from the STM32 Reference Manual. 
+- **Writing**
+  - Set address
+  - If stop flag is set, configure autoend mode (will send stop signal automatically after the number of bytes sent equals the data package size)
+  - Set data package size
+  - Set read/not write bit to 0
+  - Set start signal
+  - For each byte in the data package size:
+    - Wait until transmit buffer is empty or the TXIS flag is set
+    - Write data to TXDR buffer
+
+- **Reading**
+  - Set address
+  - Set autoend mode (will send stop signal automatically after the number of bytes received equals the data package size)
+  - Set data package size
+  - Set read/not write bit to 1
+  - Set start signal
+  - For each byte in the data package size:
+    - Wait until the receive buffer has data in it or the RXNE flag is set
+    - Save data from RXDR buffer
+
+
+For configuration of the I2C peripheral, it was important to correctly configure timing of the clocks going into the peripheral. The system clock was configured at 64 MHz and a prescaler of eight was used to slow down the clock going into the peripheral to 8 MHz. The I2C peripheral was configured to run at 400 kHz Fast Mode from this speed based on Table 181 from the STM32 Reference Manual. The speed of 400 was chosen as it is the maximum speed an ICM20948 chip can run I2C communication with. 
 
 A driver was also written for the ICM20948 chip based off of the I2C driver. The chip was configured by resetting the chip, clearing sleep mode, and enabling the accelerometer and gyroscope or by sending the signals {0x06, 0x02, 0x00} through I2C to the corresponding address of the chip. Additionally, a function was written to configure the accelerometer and gyroscope readings. The sample rate divisor for both sets of readings was set to zero by writing 0x00 to the location 0x10 and to the location 0x00. The digital low pass filter onboard the ICM chip was enabled and configuration six was chosen for both sets of readings by writing to location 0x14 for the accelerometer and 0x01 for the gyroscope. Finally, in order to read gyroscope and accelerometer data, twelve bytes of data were read starting from the address 0x2D. 
 
