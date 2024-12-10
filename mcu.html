@@ -180,8 +180,36 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="imu-integration" class="level2">
 <h2 class="anchored" data-anchor-id="imu-integration">IMU Integration</h2>
-<p>In order to communicate with IMU sensors, I2C was chosen. This protocol reduces the number of wires used to connect between the chips and the MCU. There were three functions written for the I2C peripheral driver: one for configuration, writing to a chip, and reading from a chip.</p>
-<p>For configuration of the I2C peripheral, it was important to correctly configure timing of the clocks going into the peripheral. The system clock was configured at 64 MHz and a prescaler of eight was used to slow down the clock going into the peripheral to 8 MHz. The I2C peripheral was configured to run at 400 kHz Fast Mode from this speed based on Table 181 from the STM32 Reference Manual.</p>
+<p>In order to communicate with IMU sensors, I2C was chosen. This protocol reduces the number of wires used to connect between the chips and the MCU. There were three functions written for the I2C peripheral driver: one for configuration, writing to a chip, and reading from a chip. Writing and reading were implemented as follows:</p>
+<ul>
+<li><strong>Writing</strong>
+<ul>
+<li>Set address</li>
+<li>If stop flag is set, configure autoend mode (will send stop signal automatically after the number of bytes sent equals the data package size)</li>
+<li>Set data package size</li>
+<li>Set read/not write bit to 0</li>
+<li>Set start signal</li>
+<li>For each byte in the data package size:
+<ul>
+<li>Wait until transmit buffer is empty or the TXIS flag is set</li>
+<li>Write data to TXDR buffer</li>
+</ul></li>
+</ul></li>
+<li><strong>Reading</strong>
+<ul>
+<li>Set address</li>
+<li>Set autoend mode (will send stop signal automatically after the number of bytes received equals the data package size)</li>
+<li>Set data package size</li>
+<li>Set read/not write bit to 1</li>
+<li>Set start signal</li>
+<li>For each byte in the data package size:
+<ul>
+<li>Wait until the receive buffer has data in it or the RXNE flag is set</li>
+<li>Save data from RXDR buffer</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>For configuration of the I2C peripheral, it was important to correctly configure timing of the clocks going into the peripheral. The system clock was configured at 64 MHz and a prescaler of eight was used to slow down the clock going into the peripheral to 8 MHz. The I2C peripheral was configured to run at 400 kHz Fast Mode from this speed based on Table 181 from the STM32 Reference Manual. The speed of 400 was chosen as it is the maximum speed an ICM20948 chip can run I2C communication with.</p>
 <p>A driver was also written for the ICM20948 chip based off of the I2C driver. The chip was configured by resetting the chip, clearing sleep mode, and enabling the accelerometer and gyroscope or by sending the signals {0x06, 0x02, 0x00} through I2C to the corresponding address of the chip. Additionally, a function was written to configure the accelerometer and gyroscope readings. The sample rate divisor for both sets of readings was set to zero by writing 0x00 to the location 0x10 and to the location 0x00. The digital low pass filter onboard the ICM chip was enabled and configuration six was chosen for both sets of readings by writing to location 0x14 for the accelerometer and 0x01 for the gyroscope. Finally, in order to read gyroscope and accelerometer data, twelve bytes of data were read starting from the address 0x2D.</p>
 <p>IMU data is notoriously noisy, so multiple measures were taken to reduce noise in the data. First, an initial calibration was performed for each new user. A ten second delay in the code allowed the user to move to an appropriate position (wrists horizontal) and a hundred sets of data were averaged to get an initial offset for the IMUs. Second, a sensor fusion algorithm was used to calculate orientation from IMU data. In particular, this project uses the open source Fusion library from xioTechnologies that implements the Attitude And Heading Reference System (AHRS) algorithm. A timer was used to calculate time between sample measurements for correction within the algorithm.</p>
 </section>
