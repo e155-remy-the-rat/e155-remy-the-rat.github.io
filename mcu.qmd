@@ -50,3 +50,9 @@ main.c, nrf24.c, and nrf24_hal.c in the MCU code (which can be found on the Gith
 ## MCU Code Setup
 
 The RF portions of the main_head.c, main_body.c, and main.c file put together the different commands from nrf24.c and nrf24_hal.c in the correct sequence for transcieving and recieving. main_head.c contains just the reciever code and only uses the RX() function. main_body.c includes the code needed to process IMU angle information and assign states, as well as the transciever code TX() to transmit said states. These can be called in main.c as needed to flash respective MCUs.
+
+The following diagram shows a flow of events that occur in the while loop of main for both MCUs. 
+
+![Flow Diagram for MCU code](mcuflow.jpg)
+
+

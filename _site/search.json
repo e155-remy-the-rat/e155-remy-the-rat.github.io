@@ -7,60 +7,39 @@
     "text": "This project uses two MCUs to handle both the reading of IMU data and the transmission of state information. The first MCU on the chef jacket reads acceleration and gyroscope data from the 2 IMUs mounted on the user’s arms through I2C. It also processes the data to then extrapolate state information for the arm movements. Lastly, this IMU writes state data through SPI to the first RF module to then transmit to the second RF module.\nThe second MCU reads data from the second RF module to receive state information for the movement of the arms. This MCU then sends the state information to the FPGA through GPIO.\n\nInput\n\nReceives signals from the IMU via I2C: a new feature for processing IMU signals.\n\nProcessing\n\nProcesses IMU data (also new!) to:\nDetermine motor actions.\nDecide the state to be transmitted.\n\nOutput\n\nSends signals or states to the RF chip via SPI. (also new!!)"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "E155 Project: Remy the Rat",
+    "objectID": "mcu.html#general-overview",
+    "href": "mcu.html#general-overview",
+    "title": "MCU Design Details",
     "section": "",
-    "text": "We have recreated Remy the Rat from Ratatouille! For those who have not seen the movie, Remy is a rat that sits on the head of a chef and controls the arm and hand movements of the chef to cook in a restaurant. The video below, taken from the movie, shows the type of movements we are trying to recreate:\n\n\n\nRemy teaches Linguini how to cook\n\n\nWe have slightly adjusted this to create a rat that reads signals from IMUs connected to the user’s arms, and subsequently moves the rat’s arms to match! This gives the illusion of the rat controlling the user, with four different positions of Remy’s. See the video below to see how we did:\n\nIn order to implement this design, IMUs track the position of the user’s arms and communicate with a microcontroller on the user’s body. The resulting state is transmitted to a microcontroller and FPGA on the top of the user’s head that control motors linked to Remy’s arms. A block diagram of this implementation is shown below.\n\n\n\nBlock Diagram of Project"
+    "text": "This project uses two MCUs to handle both the reading of IMU data and the transmission of state information. The first MCU on the chef jacket reads acceleration and gyroscope data from the 2 IMUs mounted on the user’s arms through I2C. It also processes the data to then extrapolate state information for the arm movements. Lastly, this IMU writes state data through SPI to the first RF module to then transmit to the second RF module.\nThe second MCU reads data from the second RF module to receive state information for the movement of the arms. This MCU then sends the state information to the FPGA through GPIO.\n\nInput\n\nReceives signals from the IMU via I2C: a new feature for processing IMU signals.\n\nProcessing\n\nProcesses IMU data (also new!) to:\nDetermine motor actions.\nDecide the state to be transmitted.\n\nOutput\n\nSends signals or states to the RF chip via SPI. (also new!!)"
   },
   {
-    "objectID": "results.html",
-    "href": "results.html",
-    "title": "Results",
-    "section": "",
-    "text": "The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired.\nOur final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, place hands on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately.\nThe final product is also powered by batteries to make this fully wireless and to also make the body system completely separate and disconnected from the head system as desired.\nThe video below shows the calibration process and a working project!\n\nThis video shows the back view to see the motors working as well:\n\n\n\n\nProfessor Brake and Remy!"
+    "objectID": "mcu.html#imu-integration",
+    "href": "mcu.html#imu-integration",
+    "title": "MCU Design Details",
+    "section": "IMU Integration",
+    "text": "IMU Integration"
   },
   {
-    "objectID": "results.html#project-results-and-how-to-use",
-    "href": "results.html#project-results-and-how-to-use",
-    "title": "Results",
-    "section": "",
-    "text": "The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired.\nOur final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, place hands on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately.\nThe final product is also powered by batteries to make this fully wireless and to also make the body system completely separate and disconnected from the head system as desired.\nThe video below shows the calibration process and a working project!\n\nThis video shows the back view to see the motors working as well:\n\n\n\n\nProfessor Brake and Remy!"
+    "objectID": "mcu.html#rf-communication",
+    "href": "mcu.html#rf-communication",
+    "title": "MCU Design Details",
+    "section": "RF Communication",
+    "text": "RF Communication\nThis project uses one MCU to write the collected IMU data to one nRF module as the transceiver, and then use on MCU to read data from the second nRF module as the receiver.\nThe following details the process that is needed to correctly configure and use the transciever and reciever RF modules.\n\nTransmit\n\nSet the address/address width\nInitialize RF characteristics (rf frequency, datarate)\nWrite data to TX FIFO (automatically sent out once TX mode turned on)\nTurn on TX mode by configuring mode and CS pin\nData has been sent once TX_DS interrupt/flag is set\nClear interrupts\n\nReceive\n\nSet address/address width\nInitialize RF characteristics\nTurn on RX mode by configuring mode and CS pin\nWait until data is in RX FIFO\nData has been received once RX_DR interrupt/flag is set\nSave data from RX FIFO\nClear interrupts\n\n\nThis was a difficult task because none of the open source libraries we found worked for the MCU-nRF duo. To implement recieving and transcieving functionality, we adapted an existing public library.\nmain.c, nrf24.c, and nrf24_hal.c in the MCU code (which can be found on the Github) are the additional files that were written in addition to the SPI/RCC/GPIO files provided from MicroPs labs. nrf24.c includes all the functions needed to configure the transciever and reciever, specific to the nRF board we are using. nrf24_hal.c (hal = hardware abstraction layer) includes all the functions needed to configure the SPI send-recieve commands."
   },
   {
-    "objectID": "results.html#scope-traces-and-testbenches",
-    "href": "results.html#scope-traces-and-testbenches",
-    "title": "Results",
-    "section": "Scope Traces and Testbenches",
-    "text": "Scope Traces and Testbenches\nThe figure below shows a passing testbench for motor states that send PWM signals.\n\n\n\nServo motor testbench\n\n\nThe image below shows a capture of scope signals showing transactions between the RF modules, proving successful transmission of states.\n\n\n\nScope showing RF transmission"
+    "objectID": "mcu.html#mcu-code-setup",
+    "href": "mcu.html#mcu-code-setup",
+    "title": "MCU Design Details",
+    "section": "MCU Code Setup",
+    "text": "MCU Code Setup\nThe RF portions of the main_head.c, main_body.c, and main.c file put together the different commands from nrf24.c and nrf24_hal.c in the correct sequence for transcieving and recieving. main_head.c contains just the reciever code and only uses the RX() function. main_body.c includes the code needed to process IMU angle information and assign states, as well as the transciever code TX() to transmit said states. These can be called in main.c as needed to flash respective MCUs.\nThe following diagram shows a flow of events that occur in the while loop of main for both MCUs.\n\n\n\nFlow Diagram for MCU code"
   },
   {
-    "objectID": "fpga.html",
-    "href": "fpga.html",
-    "title": "FPGA Design Details",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "The FPGA receives state information from the second IMU through GPIO pins, and uses this information to accordingly drive PWM signals to move the motors of the rat’s arms. As explained in the documentation page, the FPGA takes input from the MCU with 4 pins such that there are 16 possible states for the motors/rat, with the first two bits representing states for the left motor and the last two bits representing the states for the right motor - for a total of 4 distinct states per motor. The FPGA drives the servo motor using PWM signal which controls the rat arm movements.\nSince the PWM signals must mirror each other, the following image shows the position of the states:\n\n\n\nDiagram showing the mapping of motor states\n\n\nA block diagram of the FPGA code setup is included below.\n\n\n\nBlock Diagram of VHDL Code\n\n\n\nInput\n\nReceives states from the second MCU through GPIO\n\nProcessing\n\nProcesses motor states received from the MCU.\nGenerates PWM signals (new feature for the FPGA not covered in class or labs). (new!)\n\nOutput\n\nSends PWM signals to power servo motors via GPIO. (new!)"
-  },
-  {
-    "objectID": "team.html",
-    "href": "team.html",
-    "title": "Team",
-    "section": "",
-    "text": "About: Alisha is a senior engineering major at Harvey Mudd interested in robotics, electrical engineering, and hardware-software integration. She plays for the CMS women’s tennis team and likes to cook, bake, and try new foods. Her favorite movie is Ratatouille.\nLinks: - LinkedIn - GitHub - MicroPs Website\n\n\n\n\nAbout: Marina is a senior engineering major at Harvey Mudd interested in integrating mechanical, electrical, and software components into multidisciplinary projects with a special interest in robotics. In her free time, she likes to play tennis, be outside, listen to music, and bake. Her favorite movie is Ratatouille.\nLinks: - LinkedIn - GitHub - MicroPs Website"
-  },
-  {
-    "objectID": "team.html#alisha-chulani",
-    "href": "team.html#alisha-chulani",
-    "title": "Team",
-    "section": "",
-    "text": "About: Alisha is a senior engineering major at Harvey Mudd interested in robotics, electrical engineering, and hardware-software integration. She plays for the CMS women’s tennis team and likes to cook, bake, and try new foods. Her favorite movie is Ratatouille.\nLinks: - LinkedIn - GitHub - MicroPs Website"
-  },
-  {
-    "objectID": "team.html#marina-ring",
-    "href": "team.html#marina-ring",
-    "title": "Team",
-    "section": "",
-    "text": "About: Marina is a senior engineering major at Harvey Mudd interested in integrating mechanical, electrical, and software components into multidisciplinary projects with a special interest in robotics. In her free time, she likes to play tennis, be outside, listen to music, and bake. Her favorite movie is Ratatouille.\nLinks: - LinkedIn - GitHub - MicroPs Website"
+    "text": "About this site"
   },
   {
     "objectID": "documentation.html",
@@ -98,39 +77,60 @@
     "text": "Bill of Materials and Budget\n\n\n\nItem\nPart Number\nAmount\nUnit Price\nTotal\n\n\n\n\nAdafruit TDK InvenSense 9-DoF IMU\nICM-20948\n2\n14.95\n29.90\n\n\nServo Motors\nSG51R\n2\n5.95\n11.90\n\n\nRF Module\nNRF24L01\n2\n1.96\n3.92\n\n\nChef’s Coat\nB00O7PBRJW\n1\n13.56\n13.56\n\n\n\nSo, the total price of this project was $59.28, but the chef coat was just for fun, so the core pieces of this project were well under $50, which is well under budget."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "team.html",
+    "href": "team.html",
+    "title": "Team",
     "section": "",
-    "text": "About this site"
+    "text": "Alisha is a senior engineering major at Harvey Mudd interested in robotics, electrical engineering, and hardware-software integration. She plays for the CMS women’s tennis team and likes to cook, bake, and try new foods. Her favorite movie is Ratatouille.\nLinks: - LinkedIn - GitHub - MicroPs Website\n\n\n\n\nMarina is a senior engineering major at Harvey Mudd interested in integrating mechanical, electrical, and software components into multidisciplinary projects with a special interest in robotics. In her free time, she likes to play tennis, be outside, listen to music, and bake. Her favorite movie is Ratatouille.\nLinks: - LinkedIn - GitHub - MicroPs Website"
   },
   {
-    "objectID": "mcu.html#general-overview",
-    "href": "mcu.html#general-overview",
-    "title": "MCU Design Details",
+    "objectID": "team.html#alisha-chulani",
+    "href": "team.html#alisha-chulani",
+    "title": "Team",
     "section": "",
-    "text": "This project uses two MCUs to handle both the reading of IMU data and the transmission of state information. The first MCU on the chef jacket reads acceleration and gyroscope data from the 2 IMUs mounted on the user’s arms through I2C. It also processes the data to then extrapolate state information for the arm movements. Lastly, this IMU writes state data through SPI to the first RF module to then transmit to the second RF module.\nThe second MCU reads data from the second RF module to receive state information for the movement of the arms. This MCU then sends the state information to the FPGA through GPIO.\n\nInput\n\nReceives signals from the IMU via I2C: a new feature for processing IMU signals.\n\nProcessing\n\nProcesses IMU data (also new!) to:\nDetermine motor actions.\nDecide the state to be transmitted.\n\nOutput\n\nSends signals or states to the RF chip via SPI. (also new!!)"
+    "text": "Alisha is a senior engineering major at Harvey Mudd interested in robotics, electrical engineering, and hardware-software integration. She plays for the CMS women’s tennis team and likes to cook, bake, and try new foods. Her favorite movie is Ratatouille.\nLinks: - LinkedIn - GitHub - MicroPs Website"
   },
   {
-    "objectID": "mcu.html#imu-integration",
-    "href": "mcu.html#imu-integration",
-    "title": "MCU Design Details",
-    "section": "IMU Integration",
-    "text": "IMU Integration"
+    "objectID": "team.html#marina-ring",
+    "href": "team.html#marina-ring",
+    "title": "Team",
+    "section": "",
+    "text": "Marina is a senior engineering major at Harvey Mudd interested in integrating mechanical, electrical, and software components into multidisciplinary projects with a special interest in robotics. In her free time, she likes to play tennis, be outside, listen to music, and bake. Her favorite movie is Ratatouille.\nLinks: - LinkedIn - GitHub - MicroPs Website"
   },
   {
-    "objectID": "mcu.html#rf-communication",
-    "href": "mcu.html#rf-communication",
-    "title": "MCU Design Details",
-    "section": "RF Communication",
-    "text": "RF Communication\nThis project uses one MCU to write the collected IMU data to one nRF module as the transceiver, and then use on MCU to read data from the second nRF module as the receiver.\nThe following details the process that is needed to correctly configure and use the transciever and reciever RF modules.\n\nTransmit\n\nSet the address/address width\nInitialize RF characteristics (rf frequency, datarate)\nWrite data to TX FIFO (automatically sent out once TX mode turned on)\nTurn on TX mode by configuring mode and CS pin\nData has been sent once TX_DS interrupt/flag is set\nClear interrupts\n\nReceive\n\nSet address/address width\nInitialize RF characteristics\nTurn on RX mode by configuring mode and CS pin\nWait until data is in RX FIFO\nData has been received once RX_DR interrupt/flag is set\nSave data from RX FIFO\nClear interrupts\n\n\nThis was a difficult task because none of the open source libraries we found worked for the MCU-nRF duo. To implement recieving and transcieving functionality, we adapted an existing public library.\nmain.c, nrf24.c, and nrf24_hal.c in the MCU code (which can be found on the Github) are the additional files that were written in addition to the SPI/RCC/GPIO files provided from MicroPs labs. nrf24.c includes all the functions needed to configure the transciever and reciever, specific to the nRF board we are using. nrf24_hal.c (hal = hardware abstraction layer) includes all the functions needed to configure the SPI send-recieve commands."
+    "objectID": "fpga.html",
+    "href": "fpga.html",
+    "title": "FPGA Design Details",
+    "section": "",
+    "text": "The FPGA receives state information from the second IMU through GPIO pins, and uses this information to accordingly drive PWM signals to move the motors of the rat’s arms. As explained in the documentation page, the FPGA takes input from the MCU with 4 pins such that there are 16 possible states for the motors/rat, with the first two bits representing states for the left motor and the last two bits representing the states for the right motor - for a total of 4 distinct states per motor. The FPGA drives the servo motor using PWM signal which controls the rat arm movements.\nSince the PWM signals must mirror each other, the following image shows the position of the states:\n\n\n\nDiagram showing the mapping of motor states\n\n\nA block diagram of the FPGA code setup is included below.\n\n\n\nBlock Diagram of VHDL Code\n\n\n\nInput\n\nReceives states from the second MCU through GPIO\n\nProcessing\n\nProcesses motor states received from the MCU.\nGenerates PWM signals (new feature for the FPGA not covered in class or labs). (new!)\n\nOutput\n\nSends PWM signals to power servo motors via GPIO. (new!)"
   },
   {
-    "objectID": "mcu.html#mcu-code-setup",
-    "href": "mcu.html#mcu-code-setup",
-    "title": "MCU Design Details",
-    "section": "MCU Code Setup",
-    "text": "MCU Code Setup\nThe RF portions of the main_head.c, main_body.c, and main.c file put together the different commands from nrf24.c and nrf24_hal.c in the correct sequence for transcieving and recieving. main_head.c contains just the reciever code and only uses the RX() function. main_body.c includes the code needed to process IMU angle information and assign states, as well as the transciever code TX() to transmit said states. These can be called in main.c as needed to flash respective MCUs."
+    "objectID": "results.html",
+    "href": "results.html",
+    "title": "Results",
+    "section": "",
+    "text": "The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired.\nOur final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, place hands on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately.\nThe final product is also powered by batteries to make this fully wireless and to also make the body system completely separate and disconnected from the head system as desired.\nThe video below shows the calibration process and a working project!\n\nThis video shows the back view to see the motors working as well:\n\n\n\n\nProfessor Brake and Remy!"
+  },
+  {
+    "objectID": "results.html#project-results-and-how-to-use",
+    "href": "results.html#project-results-and-how-to-use",
+    "title": "Results",
+    "section": "",
+    "text": "The final project resulted in a rat that is able to adjust motors with arm movements according to the 4 states as desired.\nOur final project uses bands to tie the IMUs on the user’s wrists. These connect to the first IMU in the chef’s jacket pocket with wires embedded in the chef’s jacket sleeves. The user must hold their hands in a 90 degree position (for best results, place hands on a desk) to calibrate the IMUs before moving freely! Then, as the user moves, the motors respond accurately.\nThe final product is also powered by batteries to make this fully wireless and to also make the body system completely separate and disconnected from the head system as desired.\nThe video below shows the calibration process and a working project!\n\nThis video shows the back view to see the motors working as well:\n\n\n\n\nProfessor Brake and Remy!"
+  },
+  {
+    "objectID": "results.html#scope-traces-and-testbenches",
+    "href": "results.html#scope-traces-and-testbenches",
+    "title": "Results",
+    "section": "Scope Traces and Testbenches",
+    "text": "Scope Traces and Testbenches\nThe figure below shows a passing testbench for motor states that send PWM signals.\n\n\n\nServo motor testbench\n\n\nThe image below shows a capture of scope signals showing transactions between the RF modules, proving successful transmission of states.\n\n\n\nScope showing RF transmission"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "E155 Project: Remy the Rat",
+    "section": "",
+    "text": "We have recreated Remy the Rat from Ratatouille! For those who have not seen the movie, Remy is a rat that sits on the head of a chef and controls the arm and hand movements of the chef to cook in a restaurant. The video below, taken from the movie, shows the type of movements we are trying to recreate:\n\n\n\nRemy teaches Linguini how to cook\n\n\nWe have slightly adjusted this to create a rat that reads signals from IMUs connected to the user’s arms, and subsequently moves the rat’s arms to match! This gives the illusion of the rat controlling the user, with four different positions of Remy’s. See the video below to see how we did:\n\nIn order to implement this design, IMUs track the position of the user’s arms and communicate with a microcontroller on the user’s body. The resulting state is transmitted to a microcontroller and FPGA on the top of the user’s head that control motors linked to Remy’s arms. A block diagram of this implementation is shown below.\n\n\n\nBlock Diagram of Project"
   },
   {
     "objectID": "links.html",
@@ -145,13 +145,6 @@
     "title": "References",
     "section": "",
     "text": "Our Github Organization\nShe Builds Robots GitHub for project inspiration and 3D print STL files\nPublic library that was adapted for RF functions\nFusion library for IMU filtering and functionality"
-  },
-  {
-    "objectID": "links.html#ack",
-    "href": "links.html#ack",
-    "title": "References",
-    "section": "Ack",
-    "text": "Ack"
   },
   {
     "objectID": "links.html#acknowledgements",

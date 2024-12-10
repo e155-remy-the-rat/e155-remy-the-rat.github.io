@@ -108,6 +108,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./team.html"> 
 <span class="menu-text">Team</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./links.html"> 
+<span class="menu-text">References</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -208,6 +212,13 @@ ul.task-list li input[type="checkbox"] {
 <section id="mcu-code-setup" class="level2">
 <h2 class="anchored" data-anchor-id="mcu-code-setup">MCU Code Setup</h2>
 <p>The RF portions of the main_head.c, main_body.c, and main.c file put together the different commands from nrf24.c and nrf24_hal.c in the correct sequence for transcieving and recieving. main_head.c contains just the reciever code and only uses the RX() function. main_body.c includes the code needed to process IMU angle information and assign states, as well as the transciever code TX() to transmit said states. These can be called in main.c as needed to flash respective MCUs.</p>
+<p>The following diagram shows a flow of events that occur in the while loop of main for both MCUs.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mcuflow.jpg" class="img-fluid figure-img"></p>
+<figcaption>Flow Diagram for MCU code</figcaption>
+</figure>
+</div>
 
 
 </section>
